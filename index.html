@@ -4,11 +4,76 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>집중력 비서</title>
+  <meta name="description" content="흩어진 업무 연락을 하루 한 장의 결정할 것 목록으로">
+  <link rel="stylesheet" href="src/styles.css">
+  <script type="module" src="src/app.js"></script>
 </head>
 <body>
-  <main>
-    <h1>집중력 비서</h1>
-    <p>흩어진 업무 연락을 하루 한 장의 '결정할 것' 목록으로. 화면을 만드는 중입니다.</p>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="site-header">
+    <div class="wrap header-grid">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <h1>집중력 비서</h1>
+          <p class="intro">흩어진 업무 연락을 하루 한 장의 결정할 것 목록으로</p>
+        </div>
+      </div>
+      <div class="today-box" id="today-box" hidden>
+        <p class="persona">
+          <span class="persona-name" id="persona-name"></span>
+          <span class="persona-role" id="persona-role"></span>
+        </p>
+        <p class="persona-date" id="persona-date"></p>
+        <div class="meter" id="focus-meter">
+          <div class="meter-label">
+            <span id="meter-title">오늘 쓸 집중력</span>
+            <strong class="meter-value" id="meter-value"></strong>
+          </div>
+          <div class="meter-track" role="meter" aria-labelledby="meter-title" aria-valuemin="0" id="meter-track">
+            <div class="meter-fill" id="meter-fill"></div>
+          </div>
+          <p class="meter-hint" id="meter-hint"></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <div class="tabs" role="tablist" aria-label="화면 고르기" id="tabs">
+      <button type="button" class="tab" role="tab" id="tab-today" aria-controls="panel-today" aria-selected="true">오늘의 한 장</button>
+      <button type="button" class="tab" role="tab" id="tab-inbox" aria-controls="panel-inbox" aria-selected="false" tabindex="-1">흩어진 연락 <span class="count" id="inbox-count"></span></button>
+      <button type="button" class="tab" role="tab" id="tab-checks" aria-controls="panel-checks" aria-selected="false" tabindex="-1">통화·회의 점검</button>
+    </div>
+
+    <section class="panel" role="tabpanel" id="panel-today" aria-labelledby="tab-today" tabindex="0">
+      <p class="loading">불러오는 중…</p>
+    </section>
+    <section class="panel" role="tabpanel" id="panel-inbox" aria-labelledby="tab-inbox" tabindex="0" hidden></section>
+    <section class="panel" role="tabpanel" id="panel-checks" aria-labelledby="tab-checks" tabindex="0" hidden></section>
+
+    <div class="load-error" id="load-error" role="alert" hidden></div>
+    <noscript><p class="load-error">이 화면은 JavaScript가 켜져 있어야 보여요.</p></noscript>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p id="meta-note">모든 인물·기관·내용은 가상입니다.</p>
+    </div>
+  </footer>
+
+  <dialog class="dialog" id="source-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <h2 class="dialog-title" id="dialog-title">원문</h2>
+        <button type="button" class="btn btn-ghost" id="dialog-close">닫기</button>
+      </div>
+      <div class="dialog-meta" id="dialog-meta"></div>
+      <div class="dialog-body" id="dialog-body" tabindex="0"></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
