@@ -459,8 +459,11 @@ function renderLater(later) {
     const msg = getMessage(entry.messageId, '넘겨도 되는 것');
     if (!msg) return null;
     const person = state.idx.people.get(msg.personId);
+    // 안의 글자들이 붙어서 읽히지 않도록 쉼표로 나눈 이름을 따로 준다.
+    const name = [sourceLabel(msg.source), person ? personLabel(person) : null, formatTime(msg.time), firstLine(msg)]
+      .filter(Boolean).join(', ');
     return h('li', { class: 'later-item' },
-      h('button', { type: 'button', class: 'later-open', onclick: (event) => openMessage(msg.id, null, event.currentTarget) },
+      h('button', { type: 'button', class: 'later-open', 'aria-label': name, onclick: (event) => openMessage(msg.id, null, event.currentTarget) },
         h('span', { class: 'later-meta' },
           sourceBadge(msg.source),
           h('span', { text: [person ? personLabel(person) : null, formatTime(msg.time)].filter(Boolean).join(' · ') })),
@@ -485,6 +488,7 @@ function renderInbox() {
   const addFilter = (key, label, count) => filters.append(h('button', {
     type: 'button',
     class: 'filter',
+    'aria-label': `${label}, ${count}개`,
     'aria-pressed': String(state.filter === key),
     dataset: { key },
     onclick: () => { state.filter = key; update(); },
@@ -535,9 +539,12 @@ function renderMessageRow(msg) {
   const body = h('div', { class: 'msg-body', id: bodyId, hidden: true },
     msg.subject ? h('p', { class: 'msg-subject', text: msg.subject }) : null,
     h('p', { class: 'msg-text', text: msg.text || '' }));
+  const rowName = [sourceLabel(msg.source), personLabel(person), msg.direction === 'out' ? '내가 보냄' : null,
+    formatTime(msg.time), firstLine(msg)].filter(Boolean).join(', ');
   const row = h('button', {
     type: 'button',
     class: 'msg-row',
+    'aria-label': rowName,
     'aria-expanded': 'false',
     'aria-controls': bodyId,
     onclick: () => {
@@ -648,6 +655,7 @@ function renderPasteBox() {
     class: 'paste-input',
     rows: '9',
     spellcheck: 'false',
+    'aria-describedby': 'paste-hint',
     placeholder: '예) 나: 금요일까지 보내드릴게요\n상대: 장소는 아직 미정이에요',
   });
   const status = h('p', { class: 'paste-status', role: 'status', 'aria-live': 'polite' });
@@ -682,15 +690,19 @@ function renderPasteBox() {
       h('div', { class: 'paste-form' },
         h('label', { class: 'field-label', for: 'paste-input', text: '통화·회의 전사 (한 줄에 "화자: 내용")' }),
         textarea,
+        h('p', { class: 'paste-hint', id: 'paste-hint', text: "줄마다 '나: ...', '상대 이름: ...'처럼 화자를 붙이면 내 약속과 상대 약속을 나눠요" }),
         h('div', { class: 'paste-actions' }, sampleButton, runButton),
         status),
       results));
 }
 
 function speakerLine(entry, extra) {
+  // 화면 읽기 프로그램이 화자·내용·기한을 붙여 읽지 않도록 보이지 않는 구분 기호를 넣는다.
   return h('li', {},
     entry.speaker ? h('span', { class: 'speaker', text: entry.speaker }) : null,
+    entry.speaker ? h('span', { class: 'visually-hidden', text: ': ' }) : null,
     h('span', { text: entry.text || '' }),
+    extra ? h('span', { class: 'visually-hidden', text: ', ' }) : null,
     extra ? h('span', { class: 'due', text: extra }) : null);
 }
 
@@ -727,15 +739,20 @@ function runPasteCheck(textarea, status, results) {
   const undecided = Array.isArray(out.undecided) ? out.undecided : [];
   const dates = Array.isArray(out.dates) ? out.dates : [];
   const mine = promises.filter((p) => p.mine);
-  const theirs = promises.filter((p) => !p.mine);
-  results.replaceChildren(
-    resultBlock('내 약속', 'is-mine', mine.map((p) => speakerLine(p, p.due || '기한 없음'))),
-    resultBlock('상대 약속', 'is-theirs', theirs.map((p) => speakerLine(p, p.due || '기한 없음'))),
+  // 화자 표시가 없는 약속은 누구 것인지 모르므로 '상대 약속'에 넣지 않고 따로 보여준다.
+  const theirs = promises.filter((p) => !p.mine && p.speaker != null);
+  const unknown = promises.filter((p) => !p.mine && p.speaker == null);
+  const due = (p) => speakerLine(p, p.due || '기한 없음');
+  results.replaceChildren(...[
+    resultBlock('내 약속', 'is-mine', mine.map(due)),
+    resultBlock('상대 약속', 'is-theirs', theirs.map(due)),
+    unknown.length ? resultBlock('누가 한 약속인지 표시 없음', 'is-unknown', unknown.map(due)) : null,
     resultBlock('질문', 'is-questions', questions.map((q) => speakerLine(q))),
     resultBlock('미정', 'is-undecided', undecided.map((u) => speakerLine(u))),
     resultBlock('날짜·시각', 'is-dates', dates.map((d) => h('li', { class: 'date-chip', text: d }))),
-  );
-  status.textContent = `내 약속 ${mine.length} · 상대 약속 ${theirs.length} · 질문 ${questions.length} · 미정 ${undecided.length} · 날짜·시각 ${dates.length}개를 찾았어요.`;
+  ].filter(Boolean));
+  const unknownText = unknown.length ? ` · 화자 표시 없는 약속 ${unknown.length}` : '';
+  status.textContent = `내 약속 ${mine.length} · 상대 약속 ${theirs.length}${unknownText} · 질문 ${questions.length} · 미정 ${undecided.length} · 날짜·시각 ${dates.length}개를 찾았어요.`;
 }
 
 // ---------- 오류 화면 ----------
