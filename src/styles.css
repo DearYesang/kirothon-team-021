@@ -406,6 +406,7 @@ button { cursor: pointer; }
   font-size: 0.95rem; line-height: 1.65;
 }
 .paste-input:focus-visible { outline-offset: 0; border-color: var(--focus); }
+.paste-hint { margin: 0; font-size: 0.85rem; color: var(--muted); }
 .paste-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .paste-status { margin: 0; min-height: 1.6em; font-size: 0.92rem; color: var(--muted); }
 .paste-status.is-error { color: var(--conflict-fg); font-weight: 700; }
@@ -421,6 +422,7 @@ button { cursor: pointer; }
 .result-block li + li { margin-top: 3px; }
 .result-block.is-mine { border-left: 4px solid #e08a2e; }
 .result-block.is-theirs { border-left: 4px solid #3f78c2; }
+.result-block.is-unknown { border-left: 4px dashed #9aa3af; }
 .result-block.is-questions { border-left: 4px solid #1a8a84; }
 .result-block.is-undecided { border-left: 4px solid #8455c9; }
 .result-block.is-dates { border-left: 4px solid #6b7280; }

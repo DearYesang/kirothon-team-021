@@ -20,6 +20,7 @@
 | 검증 | Hooks (`userTriggered`) | 제출 직전에 직접 실행하는 점검을 만들었습니다. README에 템플릿 주석만 남은 섹션, Demo 줄, BUILD_REPORT 표, `PRESENTATION.pdf`, 비밀 정보와 영상 파일, `npm test`, `git status`를 한 번에 확인합니다. | `.kiro/hooks/pre-submit-check.kiro.hook` |
 | 검증 | node:test, headless Chromium | `npm test`로 엔진과 샘플 데이터를 확인하고, headless Chromium으로 화면을 캡처해 직접 봤습니다. 부모 에이전트가 보조 에이전트들의 결과를 합치고 커밋했습니다. | `tests/`, `package.json` |
 | 기타 | Kiro Crew 대시보드에서 Kiro CLI 구동, headless Chromium | 발표자료를 HTML로 쓰고 headless Chromium으로 PDF로 내보냈습니다. 슬라이드 한 장에 한 가지 내용만 담았고, 로컬 서버(127.0.0.1)로 띄운 앱 첫 화면을 캡처해 데모 슬라이드에 넣었습니다. | `slides/index.html`, `slides/app.png`, `PRESENTATION.pdf` |
+| 검증 | Kiro Crew 보조 에이전트 3개 병렬 실행 (2차) | 17:20 배포된 화면을 다시 점검하며 세 가지를 동시에 했습니다. ① 데모 영상: 배포 주소를 DevTools 프로토콜로 조작해 장면 8개를 캡처하고, macOS 음성 합성 내레이션과 자막을 넣어 83초 영상으로 만들었습니다. ② 발표: 5분 대본과 예상 질문 12개를 쓰면서 슬라이드의 오해 소지 문구 2곳을 고쳤습니다(분석 결과가 미리 만든 것임을 밝힘, 기대 효과 표 머리글을 '추정'으로). ③ 화면 개선: 화자 표시가 없는 약속이 '상대 약속'으로 잘못 분류되던 문제를 고쳐 '누가 한 약속인지 표시 없음'으로 따로 보여 주고, 화면 낭독기용 이름(출처·사람·시각 구분), 공유 미리보기 정보와 아이콘을 넣었습니다. | `src/app.js`의 `runPasteCheck`·`renderPasteBox`·`renderLater`, `index.html`, `slides/index.html`, `PRESENTATION.pdf`, 영상 파일은 규칙대로 레포에 올리지 않고 링크로만 공유 |
 
 ## 개발 과정에서 바뀐 점
 
@@ -37,4 +38,5 @@
 | 카카오톡은 외부 프로그램이 대화를 읽는 공식 통로가 없고, 슬랙 공식 MCP 연결은 워크스페이스 관리자의 앱 승인이 필요해 자동 연결을 만들 수 없었습니다. | 데모는 샘플 데이터로 보여 주고, 사용자가 직접 가져올 수 있는 '붙여넣기 점검'(`src/engine.js`, 브라우저 안에서만 동작)을 넣었습니다. 다음 단계로 카카오톡 '대화 내용 내보내기' 파일 가져오기를 계획했습니다. |
 | 커밋 서명 키에 비밀번호가 걸려 있어 Kiro의 커밋이 실패했습니다. | 사용자 승인을 받고 이 레포에서만 서명 없이 커밋하도록 했습니다. 전역 git 설정은 그대로 두었습니다. |
 | 해커톤 안내 Notion 페이지가 자바스크립트로 그려지는 페이지라 Kiro가 내용을 읽어 오지 못했습니다. | 참가자가 붙여 준 규칙과 레포의 `SUBMISSION_GUIDE.md`를 기준으로 삼았고, 그 조건을 제출 전 점검 hook(`.kiro/hooks/pre-submit-check.kiro.hook`)에 넣었습니다. |
+| Kiro Crew 보안 정책이 에이전트의 `main` 브랜치 직접 push를 막았습니다. | 작업을 `submission` 브랜치에 올리고 Pull Request를 만들어, 머지는 참가자가 GitHub에서 직접 눌렀습니다. 에이전트가 보호 브랜치를 바꾸지 못하게 하는 규칙을 그대로 따랐습니다. |
 | 마감까지 짧은 시간 안에 화면, 데이터, 엔진, 문서를 모두 만들어야 했습니다. | Kiro Crew 보조 에이전트 4개를 병렬로 돌리고, spec과 steering을 공통 계약으로, `structure.md`의 "파일 하나는 한 작업자만" 규칙으로 충돌을 막았습니다. |
