@@ -5,7 +5,13 @@
 <title>집중력 비서 · 오픈랩 team-021 발표자료</title>
 <style>
   @page { size: 1280px 720px; margin: 0; }
-  * { box-sizing: border-box; }
+  /* 배달의민족 도현체(제목)·주아체(본문). Google Fonts의 Do Hyeon·Jua, SIL OFL 1.1 (slides/fonts/OFL-*.txt) */
+  @font-face { font-family: "BM DoHyeon"; src: local("BM DoHyeon"), local("BMDoHyeon"), url("fonts/DoHyeon-Regular.ttf") format("truetype"); font-display: block; }
+  @font-face { font-family: "BM JUA"; src: local("BM JUA"), local("BMJUA"), url("fonts/Jua-Regular.ttf") format("truetype"); font-display: block; }
+  * { box-sizing: border-box; font-family: "BM JUA", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-synthesis: none; }
+  h1, h2, h3, th, .kicker, .bottomline, .stat .big, .leak .n, .one .label, .multi .label, .multi .title, .mcard .title, .cover .event, .tag {
+    font-family: "BM DoHyeon", "BM JUA", "Apple SD Gothic Neo", sans-serif; font-weight: 400;
+  }
   html, body { margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
