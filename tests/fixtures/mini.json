@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "집중력 비서 테스트 데이터",
+    "date": "2026-11-13",
+    "note": "화면 테스트용 작은 데이터입니다. 모든 인물·기관·내용은 가상입니다."
+  },
+  "persona": {
+    "name": "한지우",
+    "role": "대학원 석사과정, 연구실 산학과제 실무 담당",
+    "focusBudget": 100
+  },
+  "sources": {
+    "gmail": { "label": "Gmail", "kind": "mail" },
+    "naver": { "label": "네이버 메일", "kind": "mail" },
+    "naverworks": { "label": "네이버웍스", "kind": "mail" },
+    "outlook": { "label": "아웃룩", "kind": "mail" },
+    "kakao": { "label": "카카오톡", "kind": "chat" },
+    "slack": { "label": "슬랙", "kind": "chat" },
+    "adot": { "label": "에이닷 통화", "kind": "call" },
+    "clova": { "label": "클로바노트", "kind": "meeting" },
+    "tiro": { "label": "Tiro", "kind": "meeting" },
+    "daglo": { "label": "다글로", "kind": "meeting" }
+  },
+  "people": [
+    { "id": "p-prof", "name": "오상훈", "title": "교수", "org": "OO대 바이오정보연구실", "relation": "지도교수", "tone": "격식체, 결론 먼저, 짧게" },
+    { "id": "p-mgr", "name": "윤태경", "title": "책임연구원", "org": "가상바이오(주)", "relation": "산학과제 기업 담당자", "tone": "정중한 비즈니스 메일" },
+    { "id": "p-peer", "name": "김민재", "title": "박사과정", "org": "OO대 바이오정보연구실", "relation": "연구실 선배", "tone": "편한 존댓말" }
+  ],
+  "messages": [
+    { "id": "m01", "source": "outlook", "personId": "p-mgr", "direction": "in", "time": "2026-11-13T08:40", "subject": "중간보고 일정 문의", "text": "한지우 연구원님, 안녕하세요.\n중간보고를 11월 20일 오후 2시에 진행해도 될까요?\n가능 여부를 회신 부탁드립니다.\n윤태경 드림", "thread": "midreport" },
+    { "id": "m02", "source": "kakao", "personId": "p-prof", "direction": "in", "time": "2026-11-13T09:12", "text": "지우야 20일 오후는 내가 학회라 안 돼. 21일로 잡아줘.", "thread": "midreport" },
+    { "id": "m03", "source": "adot", "personId": "p-mgr", "direction": "in", "time": "2026-11-13T11:05", "text": "윤태경: 데이터 샘플은 언제쯤 받을 수 있을까요?\n나: 금요일까지 정리해서 보내드릴게요.\n윤태경: 좋습니다. 파일 형식은 나중에 다시 정하죠.", "thread": "sample" },
+    { "id": "m04", "source": "slack", "personId": "p-peer", "direction": "in", "time": "2026-11-13T13:20", "text": "지우 씨, 서버 사용 시간표 이번 주 안에 채워줄 수 있어요?" },
+    { "id": "m05", "source": "clova", "personId": "p-prof", "direction": "in", "time": "2026-11-13T15:00", "subject": "연구실 주간 회의", "text": "오상훈: 중간보고 자료는 누가 맡지?\n나: 제가 초안 만들겠습니다.\n오상훈: 발표자는 아직 안 정했어.", "thread": "midreport" },
+    { "id": "m06", "source": "gmail", "personId": "p-peer", "direction": "out", "time": "2026-11-13T16:30", "subject": "세미나 발표 순서", "text": "선배님, 다음 주 세미나 발표 순서표 첨부합니다.\n확인 부탁드려요." },
+    { "id": "m07", "source": "naver", "personId": "p-mgr", "direction": "in", "time": "2026-11-13T07:30", "subject": "[공지] 협력사 보안 교육 안내", "text": "협력사 대상 보안 교육 안내입니다.\n참석은 선택입니다." }
+  ],
+  "onePage": {
+    "headline": "오늘 결정할 것 4개 · 예상 집중력 38 / 100",
+    "items": [
+      {
+        "id": "i3",
+        "type": "gap",
+        "personIds": ["p-prof"],
+        "title": "중간보고 발표자가 아직 비어 있어요",
+        "advice": "회의에서 자료는 내가 맡기로 했지만 발표자는 정하지 않았어요. 다음 회의 전에 교수님께 여쭤 보면 됩니다.",
+        "weight": "later",
+        "cost": 10,
+        "urgent": false,
+        "evidence": [ { "messageId": "m05", "quote": "발표자는 아직 안 정했어." } ],
+        "draftIds": []
+      },
+      {
+        "id": "i2",
+        "type": "promise",
+        "personIds": ["p-mgr"],
+        "title": "금요일까지 데이터 샘플을 보내기로 했어요",
+        "advice": "통화에서 금요일까지 보내기로 약속했지만 메일로는 아직 남기지 않았어요. 일정을 글로 한 번 확인해 두면 잊지 않아요.",
+        "weight": "think",
+        "cost": 20,
+        "urgent": false,
+        "evidence": [ { "messageId": "m03", "quote": "금요일까지 정리해서 보내드릴게요." } ],
+        "draftIds": ["d2a", "d2b"]
+      },
+      {
+        "id": "i4",
+        "type": "unanswered",
+        "personIds": ["p-peer"],
+        "title": "서버 시간표 질문에 답하지 않았어요",
+        "advice": "김민재 선배가 이번 주 안에 시간표를 채워 달라고 물었어요. 언제 채울지 한 줄만 답하면 됩니다.",
+        "weight": "2min",
+        "cost": 3,
+        "urgent": false,
+        "evidence": [ { "messageId": "m04", "quote": "서버 사용 시간표 이번 주 안에 채워줄 수 있어요?" } ],
+        "draftIds": []
+      },
+      {
+        "id": "i1",
+        "type": "conflict",
+        "personIds": ["p-mgr", "p-prof"],
+        "title": "중간보고 날짜가 서로 달라요",
+        "advice": "윤태경 책임은 20일 오후 2시를 물었는데, 교수님은 20일 오후가 안 된다고 하셨어요. 교수님 말씀대로 21일을 제안하는 답장을 보내면 됩니다.",
+        "weight": "2min",
+        "cost": 5,
+        "urgent": true,
+        "evidence": [
+          { "messageId": "m01", "quote": "중간보고를 11월 20일 오후 2시에 진행해도 될까요?" },
+          { "messageId": "m02", "quote": "20일 오후는 내가 학회라 안 돼." }
+        ],
+        "draftIds": ["d1a", "d1b"]
+      }
+    ],
+    "later": [
+      { "messageId": "m07", "reason": "참석이 선택인 공지라 답장이 필요 없어요." }
+    ]
+  },
+  "drafts": [
+    { "id": "d1a", "itemId": "i1", "to": "p-mgr", "channel": "outlook", "style": "정중하게", "subject": "RE: 중간보고 일정 문의", "text": "윤태경 책임연구원님, 안녕하세요. 한지우입니다.\n중간보고 일정을 문의해 주셔서 감사합니다.\n11월 20일 오후에는 오상훈 교수님의 학회 일정이 있어, 11월 21일로 조정이 가능할지 여쭙고자 합니다.\n가능하신 시간을 알려 주시면 맞추겠습니다.\n\n한지우 드림", "why": "기업 담당자에게 일정 변경을 부탁하는 메일이라 격식체로 이유를 먼저 밝혔어요." },
+    { "id": "d1b", "itemId": "i1", "to": "p-mgr", "channel": "outlook", "style": "간결하게", "subject": "RE: 중간보고 일정 문의", "text": "윤태경 책임연구원님, 20일 오후는 교수님 학회 일정으로 어려워 21일로 조정 가능할지 여쭙니다.\n가능한 시간을 알려 주시면 맞추겠습니다.\n\n한지우 드림", "why": "결론과 대안만 남겨 상대가 바로 답할 수 있게 했어요." },
+    { "id": "d2a", "itemId": "i2", "to": "p-mgr", "channel": "outlook", "style": "정중하게", "subject": "데이터 샘플 전달 일정 확인", "text": "윤태경 책임연구원님, 안녕하세요. 한지우입니다.\n오늘 통화에서 말씀드린 대로 데이터 샘플은 금요일까지 정리해서 보내드리겠습니다.\n파일 형식은 정해지는 대로 맞추겠습니다.\n\n한지우 드림", "why": "통화로 한 약속을 글로 남기는 메일이라 통화 내용을 그대로 다시 적었어요." },
+    { "id": "d2b", "itemId": "i2", "to": "p-mgr", "channel": "outlook", "style": "간결하게", "subject": "데이터 샘플 전달 일정 확인", "text": "책임연구원님, 통화에서 말씀드린 데이터 샘플은 금요일까지 보내드리겠습니다.\n\n한지우 드림", "why": "약속 내용과 기한만 한 줄로 남겼어요." }
+  ],
+  "checks": [
+    {
+      "messageId": "m03",
+      "title": "에이닷 통화 · 윤태경 책임연구원 · 11:05",
+      "decided": ["데이터 샘플을 내가 보내기로 함"],
+      "undecided": ["샘플 파일 형식"],
+      "myPromises": [ { "text": "데이터 샘플 정리해서 보내기", "due": "금요일" } ],
+      "theirRequests": ["데이터 샘플 전달"],
+      "links": [ { "messageId": "m01", "note": "같은 담당자가 아웃룩 메일로 중간보고 일정도 물었어요." } ]
+    }
+  ],
+  "pasteSample": "[00:05] 박서연: 다음 주 화요일 회의 자료 준비 가능할까요?\n[00:12] 나: 네, 월요일 오후 3시까지 공유할게요.\n[00:20] 박서연: 장소는 아직 미정이에요. 정해지면 제가 알려드릴게요.\n[00:31] 나: 예산표도 확인 후 다시 말씀드리겠습니다."
+}
