@@ -1,0 +1,12 @@
+{
+  "name": "kirothon-team-021",
+  "version": "0.1.0",
+  "description": "집중력 비서: 흩어진 업무 연락을 하루 한 장의 결정할 것 목록으로",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/",
+    "start": "python3 -m http.server 8000 --bind 127.0.0.1"
+  },
+  "license": "MIT"
+}

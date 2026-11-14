@@ -21,3 +21,8 @@ out/
 # 기타
 .DS_Store
 *.log
+
+# 데모 영상은 레포에 올리지 않고 README Demo 줄에 링크로 적어요
+*.mp4
+*.mov
+*.webm

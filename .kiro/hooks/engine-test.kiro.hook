@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "엔진 테스트 실행",
+  "description": "붙여넣기 점검 엔진이나 테스트 파일을 고치면 npm test를 돌려 약속·질문·날짜 찾기가 깨지지 않았는지 확인합니다.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["src/engine.js", "tests/**/*.js"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "npm test를 실행해 주세요. 실패한 테스트가 있으면 원인이 엔진인지 테스트 기대값인지 먼저 판단하고, .kiro/specs/focus-assistant-mvp/design.md의 '엔진' 절에 맞는 쪽으로 고친 뒤 다시 실행해 결과를 알려 주세요."
+  }
+}

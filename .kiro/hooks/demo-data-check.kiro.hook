@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "샘플 데이터 정합성 점검",
+  "description": "data/demo.json을 저장하면 설계 문서의 데이터 구조와 비서 판단 규칙을 지켰는지 확인합니다.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["data/*.json"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "data/demo.json을 .kiro/specs/focus-assistant-mvp/design.md의 '데이터 구조'와 .kiro/steering/assistant-rules.md에 맞춰 점검해 주세요. 1) 모든 messageId, personId, draftIds, to가 실제로 있는 id인지 2) 모든 evidence.quote가 해당 메시지 text에 그대로 들어 있는지 3) 초안이 항목마다 정중하게·간결하게 두 개인지 4) 조언에 원문에 없는 사실이 들어가지 않았는지 5) onePage.headline의 항목 수와 집중력 합계가 실제 값과 같은지. 그다음 npm test를 실행하고, 어긋난 부분은 고친 뒤 무엇을 고쳤는지 알려 주세요."
+  }
+}

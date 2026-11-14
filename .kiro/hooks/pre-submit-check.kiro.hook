@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "제출 전 점검",
+  "description": "18:00 제출 직전에 직접 실행해서 해커톤 제출 조건을 한 번에 확인합니다.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "SUBMISSION_GUIDE.md 기준으로 제출 조건을 점검해 주세요. 1) README.md에 템플릿 안내 주석(<!-- -->)만 남은 섹션이 없는지 2) README의 Demo 줄에 실제 배포 주소나 영상 링크가 있는지 3) BUILD_REPORT.md 표가 모두 채워졌는지 4) PRESENTATION.pdf가 레포 최상단에 있는지 5) .env, API 키, 영상 파일이 커밋되지 않았는지 6) npm test가 통과하는지 7) git status가 깨끗하고 원격과 같은지. 빠진 항목만 목록으로 알려 주세요."
+  }
+}
