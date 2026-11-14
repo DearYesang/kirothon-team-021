@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>집중력 비서 · 오픈랩 team-021 발표자료</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    color: #1d2433;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    word-break: keep-all;
+  }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    padding: 56px 72px;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  @media screen {
+    body { background: #d9dde3; }
+    .slide { margin: 0 0 24px 0; }
+  }
+  .num { position: absolute; right: 48px; bottom: 28px; font-size: 18px; color: #8a93a6; }
+  .kicker { font-size: 22px; font-weight: 700; color: #0f766e; letter-spacing: 0.02em; margin: 0 0 10px; }
+  h2 { font-size: 50px; line-height: 1.2; margin: 0 0 32px; font-weight: 800; }
+  p { margin: 0; }
+  .lead { font-size: 30px; line-height: 1.5; }
+  .muted { color: #5b6476; }
+  .small { font-size: 18px; line-height: 1.5; color: #5b6476; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .card { background: #f3f5f8; border-radius: 18px; padding: 26px 28px; }
+  .card h3 { font-size: 32px; margin: 0 0 12px; }
+  .card p { font-size: 23px; line-height: 1.5; color: #3b4456; }
+  .tag { display: inline-block; font-size: 19px; font-weight: 700; padding: 4px 12px; border-radius: 999px; margin-right: 8px; }
+  .t-conflict { background: #fde2e2; color: #b42318; }
+  .t-promise { background: #ffe8cc; color: #b54708; }
+  .t-unanswered { background: #dbeafe; color: #1d4ed8; }
+  .t-gap { background: #ede4ff; color: #6b21a8; }
+  .t-now { background: #1d2433; color: #ffffff; }
+  .chip { display: inline-block; font-size: 18px; padding: 5px 12px; border: 1px solid #c9cfda; border-radius: 8px; margin: 6px 8px 0 0; color: #3b4456; background: #ffffff; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; vertical-align: top; padding: 13px 16px; border-bottom: 1px solid #dde2ea; font-size: 22px; line-height: 1.4; }
+  th { font-size: 19px; color: #5b6476; font-weight: 700; background: #f3f5f8; }
+  td b { color: #1d2433; }
+  .foot { margin-top: auto; font-size: 17px; color: #6b7487; line-height: 1.5; }
+  a { color: #0f766e; text-decoration: none; }
+
+  /* 1 표지 */
+  .cover { background: #0f2a3d; color: #ffffff; justify-content: center; padding: 72px 96px; }
+  .cover .event { font-size: 24px; color: #9fd8cf; font-weight: 700; margin-bottom: 26px; }
+  .cover h1 { font-size: 124px; line-height: 1.05; margin: 0 0 26px; font-weight: 800; }
+  .cover .sub { font-size: 42px; line-height: 1.35; color: #e6edf3; margin-bottom: 64px; }
+  .cover .team { font-size: 28px; color: #c5d2de; }
+  .cover .team b { color: #ffffff; }
+  .cover .num { color: #7d93a7; }
+  .cover .url { position: absolute; left: 96px; bottom: 44px; font-size: 20px; color: #9fd8cf; }
+
+  /* 2 문제 */
+  .leak { background: #fff7ed; border-left: 8px solid #f59e0b; border-radius: 14px; padding: 24px 26px; }
+  .leak .n { font-size: 22px; font-weight: 800; color: #b54708; }
+  .leak h3 { font-size: 34px; margin: 6px 0 12px; }
+  .leak p { font-size: 22px; line-height: 1.5; color: #3b4456; }
+  .bottomline { margin-top: 34px; font-size: 34px; font-weight: 800; }
+  .bottomline span { color: #b42318; }
+
+  /* 3 근거 */
+  .stat { background: #f3f5f8; border-radius: 18px; padding: 24px 24px 20px; display: flex; flex-direction: column; }
+  .stat .big { font-size: 58px; font-weight: 800; color: #0f766e; line-height: 1.1; }
+  .stat .what { font-size: 22px; line-height: 1.45; margin: 12px 0 14px; }
+  .stat .src { margin-top: auto; font-size: 16px; line-height: 1.4; color: #6b7487; }
+  .mine { margin-top: 22px; background: #fff7ed; border-radius: 14px; padding: 16px 22px; font-size: 21px; line-height: 1.5; }
+
+  /* 4 해결 */
+  .flow { display: grid; grid-template-columns: 1fr 64px 1fr 64px 1.25fr; align-items: stretch; }
+  .flow .arrow { display: flex; align-items: center; justify-content: center; font-size: 44px; color: #8a93a6; }
+  .flow .box { border-radius: 18px; padding: 24px 24px; background: #f3f5f8; }
+  .flow .box h3 { font-size: 28px; margin: 0 0 12px; }
+  .flow .box p { font-size: 22px; line-height: 1.55; color: #3b4456; }
+  .flow .box.out { background: #e6f4f1; border: 2px solid #0f766e; }
+  .rules { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; }
+  .rules div { font-size: 25px; line-height: 1.4; padding-left: 30px; position: relative; }
+  .rules div::before { content: "✓"; position: absolute; left: 0; color: #0f766e; font-weight: 800; }
+
+  /* 5 복합 조언 */
+  .vs { display: grid; grid-template-columns: 0.8fr 1.6fr; gap: 28px; }
+  .one { background: #f3f5f8; border-radius: 18px; padding: 28px; }
+  .one .label, .multi .label { font-size: 21px; font-weight: 800; margin-bottom: 16px; }
+  .one .label { color: #6b7487; }
+  .one .msg { font-size: 34px; font-weight: 700; line-height: 1.4; color: #5b6476; }
+  .one .why { font-size: 21px; line-height: 1.5; color: #6b7487; margin-top: 20px; }
+  .multi { background: #ffffff; border: 2px solid #0f766e; border-radius: 18px; padding: 26px 28px; }
+  .multi .label { color: #0f766e; }
+  .multi .title { font-size: 28px; font-weight: 800; margin: 12px 0 10px; }
+  .multi .advice { font-size: 21px; line-height: 1.55; color: #2b3445; }
+  .multi .advice b { color: #1d2433; }
+
+  .multi2 { display: flex; flex-direction: column; gap: 12px; }
+  .mcard { background: #ffffff; border: 2px solid #0f766e; border-radius: 16px; padding: 14px 22px; }
+  .mcard .title { font-size: 23px; font-weight: 800; margin: 8px 0 6px; }
+  .mcard .advice { font-size: 18px; line-height: 1.5; color: #2b3445; }
+  .mcard .advice b { color: #1d2433; }
+  .mcard .chip { font-size: 16px; padding: 3px 10px; }
+
+  /* 6 데모 */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .step { background: #f3f5f8; border-radius: 18px; padding: 22px 22px; }
+  .step .n { width: 44px; height: 44px; border-radius: 50%; background: #0f766e; color: #ffffff; font-size: 24px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .step h3 { font-size: 26px; margin: 0 0 10px; }
+  .step p { font-size: 20px; line-height: 1.5; color: #3b4456; }
+  .demo-url { margin-top: 28px; font-size: 30px; font-weight: 800; }
+  .demo-url a { color: #0f766e; }
+  .shot { margin-top: 18px; display: flex; gap: 24px; align-items: flex-start; }
+  .shot img { width: 520px; border-radius: 12px; border: 1px solid #c9cfda; }
+
+  .demo2 { display: grid; grid-template-columns: 1fr 584px; gap: 28px; align-items: start; }
+  .demo2 img { width: 584px; height: 365px; object-fit: cover; object-position: top left; border-radius: 12px; border: 1px solid #c9cfda; display: block; }
+  .srow { display: flex; flex-direction: column; gap: 12px; }
+  .srow-i { display: flex; gap: 14px; align-items: flex-start; background: #f3f5f8; border-radius: 14px; padding: 12px 16px; }
+  .srow-i .n { flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; background: #0f766e; color: #ffffff; font-size: 19px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .srow-i h3 { font-size: 22px; margin: 2px 0 4px; }
+  .srow-i p { font-size: 17px; line-height: 1.45; color: #3b4456; }
+  .demo2 + .demo-url { margin-top: 20px; font-size: 26px; }
+
+  /* 8 Kiro */
+  .pipe { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr 40px 1fr; align-items: stretch; }
+  .pipe .arrow { display: flex; align-items: center; justify-content: center; font-size: 34px; color: #8a93a6; }
+  .pipe .box { background: #f3f5f8; border-radius: 16px; padding: 20px 20px; }
+  .pipe .box h3 { font-size: 27px; margin: 0 0 4px; color: #0f766e; }
+  .pipe .box .loc { font-size: 15px; color: #6b7487; margin-bottom: 12px; font-family: ui-monospace, Menlo, monospace; }
+  .pipe .box p { font-size: 19px; line-height: 1.55; color: #2b3445; }
+  .timeline { margin-top: 28px; display: grid; grid-template-columns: repeat(6, 1fr); border-top: 4px solid #0f766e; }
+  .timeline div { padding: 12px 10px 0 0; font-size: 18px; line-height: 1.4; color: #3b4456; }
+  .timeline b { display: block; font-size: 22px; color: #0f766e; }
+
+  /* 10 효과 */
+  .effects td:nth-child(2), .effects td:nth-child(3) { white-space: nowrap; }
+  .arrowv { color: #0f766e; font-weight: 800; }
+  .next { list-style: none; padding: 0; margin: 0; counter-reset: n; }
+  .next li { counter-increment: n; font-size: 23px; line-height: 1.45; padding: 0 0 14px 44px; position: relative; }
+  .next li::before { content: counter(n); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: #0f2a3d; color: #ffffff; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+<!-- 1 표지 -->
+<section class="slide cover">
+  <div class="event">KIROTHON 2026</div>
+  <h1>집중력 비서</h1>
+  <div class="sub">흩어진 업무 연락을 하루 한 장으로</div>
+  <div class="team"><b>오픈랩</b> · team-021 · 예성철</div>
+  <div class="url">dearyesang.github.io/kirothon-team-021</div>
+  <div class="num">1</div>
+</section>
+
+<!-- 2 문제 -->
+<section class="slide">
+  <div class="kicker">문제</div>
+  <h2>시간보다 집중력이 먼저 바닥납니다</h2>
+  <div class="grid2">
+    <div class="leak"><div class="n">새는 곳 1</div><h3>앱 확인</h3><p>메일 4개, 카톡·슬랙, 통화 녹음, 회의록을 놓쳤을까 봐 하나씩 열어 봅니다.</p></div>
+    <div class="leak"><div class="n">새는 곳 2</div><h3>원문 다시 읽기</h3><p>무엇을 해야 하는지 알려고 긴 메일, 스레드, 통화 전사를 다시 읽습니다.</p></div>
+    <div class="leak"><div class="n">새는 곳 3</div><h3>답장 첫 문장 고민</h3><p>교수님, 상사, 거래처마다 호칭과 존댓말이 달라 첫 문장에서 멈춥니다.</p></div>
+    <div class="leak"><div class="n">새는 곳 4</div><h3>약속 기억하기</h3><p>통화에서 한 "오늘 중으로 보내드릴게요"를 따로 기억해 둬야 합니다.</p></div>
+  </div>
+  <div class="bottomline">그래서 정작 <span>판단</span>할 일에 쓸 집중력이 남지 않습니다.</div>
+  <div class="num">2</div>
+</section>
+
+<!-- 3 근거 -->
+<section class="slide">
+  <div class="kicker">근거</div>
+  <h2>끊기고, 오가고, 놓칩니다</h2>
+  <div class="grid4">
+    <div class="stat">
+      <div class="big">2분</div>
+      <div class="what">마다 한 번, 회의·메일·채팅 알림으로 일이 끊깁니다 (하루 275번)</div>
+      <div class="src">Microsoft Work Trend Index 특별 보고서, 2025.6. 알림을 많이 받는 상위 20% 사용자 기준</div>
+    </div>
+    <div class="stat">
+      <div class="big">47초</div>
+      <div class="what">한 화면에 머무는 평균 시간. 주의가 벗어나면 다시 집중까지 약 25분</div>
+      <div class="src">Gloria Mark, UC Irvine 정보학과</div>
+    </div>
+    <div class="stat">
+      <div class="big">27%</div>
+      <div class="what">앱을 오가다 할 일과 메시지를 놓친다고 답한 비율 (10개 도구, 하루 최대 25번 전환)</div>
+      <div class="src">Asana Anatomy of Work Index</div>
+    </div>
+    <div class="stat">
+      <div class="big">66%</div>
+      <div class="what">퇴근 후나 휴가 중 회사 연락을 받은 적 있는 한국 직장인</div>
+      <div class="src">직장갑질119·글로벌리서치, 2025.10, 직장인 1,000명 (연합뉴스)</div>
+    </div>
+  </div>
+  <div class="mine"><b>참가자 경험</b> · 메일 4종과 카톡·슬랙 답장 말투 고민, 에이닷 통화와 AI 회의록을 메일·메신저와 직접 맞춰 보기. Muse와 dots를 써 보니 "답장하세요"보다 여러 채널을 묶은 조언이 필요했습니다.</div>
+  <div class="foot">출처: microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday · ics.uci.edu (2023.1.12 CNN 인터뷰 소개) · asana.com/inside-asana/servicenow-integration · fr.yna.co.kr/view/AFR20260222000900884</div>
+  <div class="num">3</div>
+</section>
+
+<!-- 4 해결 -->
+<section class="slide">
+  <div class="kicker">해결</div>
+  <h2>보는 곳은 '오늘의 한 장' 하나</h2>
+  <div class="flow">
+    <div class="box"><h3>흩어진 연락</h3><p>Gmail · 네이버 메일 · 네이버웍스 · 아웃룩<br>카카오톡 · 슬랙<br>에이닷 통화<br>클로바노트 · Tiro · 다글로</p></div>
+    <div class="arrow">→</div>
+    <div class="box"><h3>장부 세 개</h3><p><b>사람</b>: 메일 주소, 카톡 이름, 통화 상대를 한 사람으로<br><b>약속</b>: 내 약속, 상대 약속, 기한<br><b>일</b>: 채널별 최신 날짜·장소·금액</p></div>
+    <div class="arrow">→</div>
+    <div class="box out"><h3>오늘의 한 장</h3><p>오늘 결정할 것만 카드로<br>카드마다 근거 원문과 시각<br>답장 초안 두 개 (정중하게 · 간결하게)<br>집중력 합계 / 하루 예산 100</p></div>
+  </div>
+  <div class="rules">
+    <div>답장은 원래 앱에서. 비서는 초안까지만 쓰고 보내지 않습니다</div>
+    <div>원문에 없는 사실은 쓰지 않고, 없으면 "기록 없음"</div>
+    <div>무게: 2분(5) · 생각 필요(15~25) · 나중(0)</div>
+    <div>'바로' 알림은 오늘 마감, 두 채널 이상 연락, 약속 기한 임박만</div>
+  </div>
+  <div class="num">4</div>
+</section>
+
+<!-- 5 복합 조언 -->
+<section class="slide">
+  <div class="kicker">복합 조언 예시 (데모 데이터, 문장은 줄임)</div>
+  <h2>한 앱만 보면 놓치는 것을 묶어서 알려 줍니다</h2>
+  <div class="vs">
+    <div class="one">
+      <div class="label">1차원 알림</div>
+      <div class="msg">"박 과장님께 답장하세요"</div>
+      <div class="why">무엇을, 왜, 어떻게 답해야 하는지는 메일, 카톡, 통화, 회의록을 다시 찾아 읽어야 압니다.</div>
+    </div>
+    <div class="multi2">
+      <div class="mcard">
+        <span class="tag t-now">바로</span><span class="tag t-promise">잊힌 약속</span>
+        <div class="title">전처리 결과 요약: 오늘 보내기로 한 약속</div>
+        <div class="advice">통화에서 <b>"오늘 중으로 보내드릴게요"</b>라고 했는데 보낸 기록이 없습니다. 15:40 카톡으로 다시 물었습니다. 요약은 이미 공유 폴더에 있으니 <b>메일로 보내고 카톡으로 한 줄 알리면 끝</b>입니다.</div>
+        <div><span class="chip">에이닷 통화 · 11/13 10:32</span><span class="chip">카카오톡 · 11/13 15:40</span><span class="chip">슬랙 · 11/13 13:30</span></div>
+      </div>
+      <div class="mcard">
+        <span class="tag t-now">바로</span><span class="tag t-conflict">충돌</span>
+        <div class="title">중간보고 날짜: 20일(금)로 정했는데 19일(목)로 당기자는 요청</div>
+        <div class="advice">회의에서는 20일로 정했고, 메일로 19일 요청이 왔습니다. 슬랙 공지로는 교수님이 19일 오후에 학회로 자리에 없습니다. <b>교수님께 먼저 확인한 뒤 "19일 오전 또는 20일 유지"를 제안</b>하세요.</div>
+        <div><span class="chip">Tiro · 11/12 17:30</span><span class="chip">네이버웍스 · 11/13 08:50</span><span class="chip">슬랙 · 11/13 13:05</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">조언 문장은 "무슨 일 → 왜 문제 → 무엇을 하면 되는지" 순서. 근거 칩을 누르면 원문 전체가 열립니다. 인물·기관은 모두 가상입니다.</div>
+  <div class="num">5</div>
+</section>
+
+<!-- 6 데모 흐름 -->
+<section class="slide">
+  <div class="kicker">데모</div>
+  <h2>가상 인물 한지우의 하루로 따라가기</h2>
+  <div class="demo2">
+    <div class="srow">
+      <div class="srow-i"><div class="n">1</div><div><h3>오늘의 한 장</h3><p>첫 화면. '바로' 카드부터 읽고 집중력 55 / 100을 확인합니다.</p></div></div>
+      <div class="srow-i"><div class="n">2</div><div><h3>근거 원문</h3><p>근거 칩을 누르면 원문 전체가 열리고 인용 문장이 강조됩니다.</p></div></div>
+      <div class="srow-i"><div class="n">3</div><div><h3>답장 초안</h3><p>정중하게 · 간결하게 중 고르고 복사. 원래 앱에서 보냅니다.</p></div></div>
+      <div class="srow-i"><div class="n">4</div><div><h3>통화·회의 점검</h3><p>내 약속과 기한 확인. 전사를 붙여 넣으면 약속·질문·미정·날짜를 찾습니다.</p></div></div>
+    </div>
+    <img src="app.png" alt="집중력 비서 첫 화면: 오늘 결정할 것 6개, 예상 집중력 55 / 100">
+  </div>
+  <div class="demo-url">Demo: <a href="https://dearyesang.github.io/kirothon-team-021/">https://dearyesang.github.io/kirothon-team-021/</a></div>
+  <div class="foot">설치 없이 열립니다. 모든 인물·기관·내용은 가상이고, 붙여넣은 내용은 브라우저 밖으로 나가지 않습니다 (API 키 없음).</div>
+  <div class="num">6</div>
+</section>
+
+<!-- 7 연결 현실성 -->
+<section class="slide">
+  <div class="kicker">연결 현실성</div>
+  <h2>한국 업무 도구는 연결 통로가 제각각입니다</h2>
+  <table>
+    <tr><th style="width:20%">서비스</th><th style="width:46%">외부 연결 현실</th><th>집중력 비서의 방법</th></tr>
+    <tr><td><b>네이버 메일</b></td><td>2025.6.24부터 POP3/IMAP에 2단계 인증과 앱 비밀번호 필수</td><td>IMAP 연결 (다음 단계)</td></tr>
+    <tr><td><b>네이버웍스 메일</b></td><td>POP3/IMAP은 Standard 이상 요금제만</td><td>요금제 확인 후 IMAP</td></tr>
+    <tr><td><b>슬랙</b></td><td>공식 MCP 연결에 워크스페이스 관리자 앱 승인 필요</td><td>승인받은 워크스페이스부터</td></tr>
+    <tr><td><b>카카오톡</b></td><td>외부 프로그램이 대화를 읽는 공식 통로 없음</td><td>'대화 내용 내보내기' 파일 가져오기</td></tr>
+    <tr><td><b>Tiro</b></td><td>공식 MCP 연결 제공</td><td>MCP로 회의록 가져오기</td></tr>
+    <tr><td><b>클로바노트</b></td><td>음성 기록을 파일로 내려받기 가능</td><td>내려받은 파일 가져오기</td></tr>
+  </table>
+  <div class="foot">지금 MVP: 가상 샘플 데이터 + 브라우저 안에서 도는 붙여넣기 점검. 출처: 네이버 고객센터, NAVER WORKS 도움말, Slack 도움말, Tiro 문서, 클로바노트 고객센터 (링크는 README '기존 방식과 한계')</div>
+  <div class="num">7</div>
+</section>
+
+<!-- 8 Kiro -->
+<section class="slide">
+  <div class="kicker">Kiro로 만든 과정</div>
+  <h2>Spec → Steering → Hooks → 병렬 보조 에이전트</h2>
+  <div class="pipe">
+    <div class="box"><h3>Spec</h3><div class="loc">.kiro/specs/focus-assistant-mvp/</div><p>requirements: 사용자 스토리 5개, EARS 인수 조건 22개<br>design: 화면·데이터 구조·엔진<br>tasks: 작업 8개</p></div>
+    <div class="arrow">→</div>
+    <div class="box"><h3>Steering</h3><div class="loc">.kiro/steering/</div><p>항상: product · tech · structure<br>fileMatch: assistant-rules는 data/*.json에만 (장부·무게·말투 규칙)</p></div>
+    <div class="arrow">→</div>
+    <div class="box"><h3>Hooks</h3><div class="loc">.kiro/hooks/</div><p>저장 시: 비밀 정보 점검, 샘플 데이터 정합성, 엔진 테스트<br>수동: 제출 전 점검</p></div>
+    <div class="arrow">→</div>
+    <div class="box"><h3>보조 에이전트 4개</h3><div class="loc">Kiro Crew</div><p>화면 · 데이터 · 엔진 · 문서를 동시에. spec과 steering을 계약으로, 파일 소유를 나눠 충돌 방지</p></div>
+  </div>
+  <div class="timeline">
+    <div><b>16:07</b>기획 대화, 웹 검색</div>
+    <div><b>16:20</b>해커톤 규칙으로 재계획</div>
+    <div><b>16:29</b>gh CLI로 레포, Pages</div>
+    <div><b>16:30~45</b>Spec · Steering · Hooks</div>
+    <div><b>16:50</b>병렬 구현</div>
+    <div><b>검증</b>npm test, 화면 캡처</div>
+  </div>
+  <div class="num">8</div>
+</section>
+
+<!-- 9 차별점 -->
+<section class="slide">
+  <div class="kicker">차별점</div>
+  <h2>대신 처리하지 않고, 판단할 것을 근거와 함께</h2>
+  <table>
+    <tr><th style="width:22%">비교 대상</th><th style="width:34%">그쪽의 방식</th><th>집중력 비서</th></tr>
+    <tr><td><b>Meta Muse</b></td><td>먼저 나서서 일을 처리하는 개인 AI 에이전트</td><td>초안까지만 쓰고 보내지 않음. 보내는 것은 사용자가 원래 앱에서</td></tr>
+    <tr><td><b>OpenAI dots</b></td><td>연결된 앱을 읽기 전용으로 살펴 놓친 것을 알림</td><td>장부 세 개를 맞춰 충돌 · 잊힌 약속 · 답 안 한 질문 · 빈칸까지</td></tr>
+    <tr><td><b>앱별 AI 요약</b></td><td>그 앱 안의 내용만 요약</td><td>여러 채널을 묶은 복합 조언, 조언마다 근거 원문</td></tr>
+    <tr><td><b>ChatGPT 복붙</b></td><td>매번 복사, 대화가 끝나면 맥락이 끊김</td><td>사람·약속을 이어서 보고, 말투 규칙은 문서로 고정</td></tr>
+  </table>
+  <div class="foot" style="font-size:22px; color:#1d2433; line-height:1.6">한국 업무 도구와 한국식 호칭·존댓말이 기본 · 하루 집중력 예산 100과 2분 / 생각 필요 / 나중 무게</div>
+  <div class="num">9</div>
+</section>
+
+<!-- 10 기대 효과와 다음 단계 -->
+<section class="slide">
+  <div class="kicker">기대 효과와 다음 단계</div>
+  <h2>목표는 하루 집중력을 판단에 쓰는 것</h2>
+  <div class="grid2" style="grid-template-columns: 1.25fr 1fr; gap: 40px;">
+    <div>
+      <table class="effects">
+        <tr><th>목표 (추정)</th><th>지금</th><th>목표</th></tr>
+        <tr><td>확인하러 여는 곳</td><td>10곳</td><td><span class="arrowv">→</span> 1곳</td></tr>
+        <tr><td>하던 일이 끊기는 횟수</td><td>하루 약 20번</td><td><span class="arrowv">→</span> 3번</td></tr>
+        <tr><td>답장 첫 문장 정하기</td><td>약 3분</td><td><span class="arrowv">→</span> 30초</td></tr>
+        <tr><td>기록 없이 남는 내 약속</td><td>모름</td><td><span class="arrowv">→</span> 0건</td></tr>
+      </table>
+      <div class="small" style="margin-top:14px">참가자의 하루를 기준으로 한 추정입니다. 실제 사용자로 측정한 값이 아닙니다.</div>
+    </div>
+    <div>
+      <ol class="next">
+        <li>메일 IMAP 연결 (네이버 메일 앱 비밀번호)</li>
+        <li>Tiro MCP로 회의록 가져오기</li>
+        <li>카카오톡 내보내기 파일, 클로바노트 파일 가져오기</li>
+        <li>AI 모델 연결: assistant-rules.md를 그대로 프롬프트로</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot">github.com/DearYesang/kirothon-team-021 · 오픈랩 team-021 · 예성철</div>
+  <div class="num">10</div>
+</section>
+
+</body>
+</html>
