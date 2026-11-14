@@ -2,7 +2,7 @@
 
 업무 연락이 메일·카카오톡·슬랙·통화 녹음·AI 회의록에 흩어진 대학원생과 직장인이 매일 앱을 돌며 확인하고, 답장 첫 문장을 고민하고, 통화에서 한 약속을 잊는 불편을 하루 한 장의 '결정할 것' 목록과 답장 초안으로 줄이는 웹앱입니다.
 
-**Demo:** [https://dearyesang.github.io/kirothon-team-021/](https://dearyesang.github.io/kirothon-team-021/) (설치 없이 바로 열립니다. 가상 인물의 하루치 샘플 연락으로 동작합니다.)
+**Demo:** [https://dearyesang.github.io/kirothon-team-021/](https://dearyesang.github.io/kirothon-team-021/) (설치 없이 바로 열립니다. 가상 인물의 하루치 샘플 연락으로 동작합니다.) · 데모 영상(83초, 내레이션·자막): [https://youtu.be/6ZeX0G_CtTU](https://youtu.be/6ZeX0G_CtTU)
 
 ---
 
